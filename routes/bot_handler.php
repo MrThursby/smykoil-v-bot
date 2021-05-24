@@ -5,6 +5,8 @@ use App\Facades\BotFacade as Bot;
 use App\Library\BotRequest;
 use App\Library\BotSender;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Route;
+use Telegram\Bot\Laravel\Facades\Telegram;
 
 Bot::registerRoute('/bot_handler', function () {
     Bot::registerCommand('/start', function (BotRequest $request) {
@@ -19,4 +21,8 @@ Bot::registerRoute('/bot_handler', function () {
     Bot::registerCommand('vk_confirmation', function () {
         return response(env('VK_CONFIRMATION'));
     });
+});
+
+Route::get('/bot/set_wh', function () {
+    Telegram::setWebhook();
 });

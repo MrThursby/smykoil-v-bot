@@ -8,6 +8,7 @@ use ATehnix\VkClient\Client;
 use ATehnix\VkClient\Exceptions\VkException;
 use ATehnix\VkClient\Requests\Request as VKRequest;
 use Illuminate\Support\Facades\Log;
+use Telegram\Bot\Laravel\Facades\Telegram;
 
 class BotSender
 {
@@ -42,6 +43,9 @@ class BotSender
     }
 
     public function tgDriver(int $user_id, string $message, array $keyboard = null) {
-        return null;
+        return Telegram::sendMessage([
+            'chat_id' => $user_id,
+            'text' => $message,
+        ]);
     }
 }
