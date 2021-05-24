@@ -19,7 +19,7 @@ class BotSender
     }
 
     public function send(string $message, array $keyboard = null){
-        $this->{$this->driver.'Driver'}($this->user_id, $message, $keyboard);
+        return $this->{$this->driver.'Driver'}($this->user_id, $message, $keyboard);
     }
 
     public function vkDriver(int $user_id, string $message, array $keyboard = null) {

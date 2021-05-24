@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Log;
 Bot::registerRoute('/bot_handler', function () {
     Bot::registerCommand('/start', function (BotRequest $request) {
         $sender = new BotSender($request);
-        $sender->send('Привет, '.$request->first_name);
+        $response = $sender->send('Привет, '.$request->first_name);
+        $response = collect($response)->toJson();
+        Log::info($response);
 
         return 'ok';
     });
