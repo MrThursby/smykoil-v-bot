@@ -47,7 +47,7 @@ class BotRequest
         $webhookIp = WebhookIp::query()
             ->where('first_ip', '>=', $ip)
             ->where('last_ip', '<=', $ip)
-            ->first();
+            ->get()->first();
         if($webhookIp)Log::info('WebhookIp finded: '.$webhookIp->id);
 
         if($webhookIp){
