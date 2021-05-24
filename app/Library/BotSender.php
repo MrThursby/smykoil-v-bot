@@ -50,7 +50,7 @@ class BotSender
         ];
 
         if($keyboard){
-            $send[] = ['reply_markup' => $this->makeTgKeyboard($keyboard)];
+            $send['reply_markup'] = $this->makeTgKeyboard($keyboard);
         }
 
         return Telegram::sendMessage($send);
