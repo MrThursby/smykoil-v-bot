@@ -37,20 +37,16 @@ class BotRequest
             $this->command = 'unknown_service';
         } else {
             $driver = $this->driver.'Driver';
-            Log::info('MethodName = '.$driver);
             $this->{$driver}($request);
         }
     }
 
     public function setDriver(string $ip) {
-        Log::info('set driver for ip: '.$ip);
         $ip = ip2long($ip);
-        Log::info('set driver for (int) $ip: '.$ip);
         $webhookIp = WebhookIp::query()
             ->where('first_ip', '<=', $ip)
             ->where('last_ip', '>=', $ip)
             ->first();
-        if($webhookIp)Log::info('WebhookService finded: '.$webhookIp->service->driver);
 
         if($webhookIp){
             $this->driver = $webhookIp->service->driver;
@@ -85,7 +81,6 @@ class BotRequest
     }
 
     public function vkDriver(Request $request) {
-        Log::info('Use vk driver');
         if($request->json('type') == 'confirmation') {
             $this->command = 'vk_confirmation';
         }

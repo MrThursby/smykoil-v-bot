@@ -48,7 +48,7 @@ class Bot
             return null;
         }
 
-        $params = array_merge([$request], $params);
+        $params = array_merge([$botRequest], $params);
 
         return $command->run($params);
     }
