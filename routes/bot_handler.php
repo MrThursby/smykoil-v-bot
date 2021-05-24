@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
 Bot::registerRoute('/bot_handler', function () {
+
     Bot::registerCommand('/start', function (BotRequest $request) {
         $keyboard = (new BotKeyboard([
             ['Привет' => '/hello', 'Пока' => '/bae'],
@@ -19,6 +20,20 @@ Bot::registerRoute('/bot_handler', function () {
         $sender->send('Привет, '.$request->first_name, $keyboard);
         return 'ok';
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     Bot::registerCommand('/hello', function (BotRequest $request) {
         $sender = new BotSender($request);
@@ -53,5 +68,5 @@ Route::get('/test/kb', function (BotRequest $request) {
         ['Привет' => '/hello', 'Пока' => '/buy'],
         ['Ещё' => '/etc'],
     ]))->inline()->vk();
-    return response()->json($keyboard);
+    return response()->json(json_decode($keyboard));
 });
