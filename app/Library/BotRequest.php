@@ -86,8 +86,8 @@ class BotRequest
         }
 
         if($request->json('type') == 'message_new') {
-            $q = $request->json('object.text');
-            $this->user_id = (int) $request->json('object.from_id');
+            $q = $request->json('object.message.text');
+            $this->user_id = (int) $request->json('object.message.from_id');
 
             $api = new Client("5.131");
             $api->setDefaultToken(env('VK_API_TOKEN'));
