@@ -94,7 +94,13 @@ class BotRequest
         }
 
         if($request->json('type') == 'message_new') {
-            $q = $request->json('object.message.text');
+            if($request->has('object.message.payload')){
+                $q = $request->input('object.message.payload');
+                $q = json_decode($q);
+                $q = $q['command'];
+            } else {
+                $q = $request->json('object.message.text');
+            }
             $this->user_id = (int) $request->json('object.message.from_id');
             $this->date = (int) $request->json('object.message.date');
 
