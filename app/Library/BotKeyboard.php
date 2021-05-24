@@ -51,7 +51,7 @@ class BotKeyboard
                 $buttons = [];
                 foreach ($row as $label => $payload) {
                     $type = 'text';
-                    $payload = json_encode(['button' => $payload]);
+                    $payload = json_encode(['button' => "1"]);
                     $buttons[] = [
                         'action' => compact('type', 'label', 'payload'),
                         'color' => 'secondary'
