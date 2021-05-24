@@ -62,7 +62,7 @@ class BotSender
 
     public function makeTgKeyboard(BotKeyboard $keyboard, $inline = false) {
         $new = Keyboard::make();
-        foreach ($keyboard as $line) {
+        foreach ($keyboard->keyboard as $line) {
             $buttons = [];
             foreach ($line as $key => $value) {
                 $buttons[] = Keyboard::inlineButton(['text' => $key, 'callback_data' => $value]);
