@@ -7,6 +7,6 @@ Bot::registerRoute('/bot_handler', function () {
     Bot::registerCommand('/start', [new WelcomeController, 'index']);
 
     Bot::registerCommand('vk_confirmation', function () {
-        return 'c629da12';
+        return env('VK_CONFIRMATION');
     });
 });
