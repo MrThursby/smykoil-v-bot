@@ -50,43 +50,9 @@ class BotSender
         ];
 
         if($keyboard){
-            $send['reply_markup'] = $this->makeTgKeyboard($keyboard);
+            $send['reply_markup'] = $keyboard->tg();
         }
 
         return Telegram::sendMessage($send);
-    }
-
-    public function makeVkKeyboard() {
-        //
-    }
-
-    public function makeTgKeyboard(BotKeyboard $keyboard, $inline = true): Keyboard
-    {
-        if($inline) {
-            $kb = collect($keyboard->rows);
-            $kb = $kb->map(function ($line){
-                $line = collect($line);
-                $line = $line->map(function ($btn) {
-                    $button = [];
-                    foreach ($btn as $key => $value) {
-                        $button = ['text' => $key, 'callback_query' => $value];
-                    }
-                    return $button;
-                });
-                return $line->toArray();
-            });
-            $keyboard = [
-                'inline_keyboard' => $kb
-            ];
-            $keyboard = Keyboard::make($keyboard)->inline();
-        } else {
-            $keyboard = [
-                'keyboard' => $keyboard,
-                'resize_keyboard' => true,
-                'one_time_keyboard' => true
-            ];
-            $keyboard = Keyboard::make($keyboard);
-        }
-        return $keyboard;
     }
 }

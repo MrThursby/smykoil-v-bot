@@ -4,6 +4,9 @@
 namespace App\Library;
 
 
+use Telegram\Bot\Keyboard\Keyboard;
+use Telegram\Bot\Laravel\Facades\Telegram;
+
 class BotKeyboard
 {
     /** @var array[]  */
@@ -27,5 +30,17 @@ class BotKeyboard
     public function inline(bool $bool = true): self {
         $this->inline = $bool;
         return $this;
+    }
+
+    public function tg() {
+        return (new Keyboard([
+            'inline_keyboard' => collect($this->rows)->map(function ($row) {
+                $buttons = [];
+                foreach ($row as $text => $callback_data){
+                    $buttons[] = compact('text', 'callback_data');
+                }
+                return $buttons;
+            })->toArray()
+        ]))->inline();
     }
 }

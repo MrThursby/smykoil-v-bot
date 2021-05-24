@@ -14,7 +14,7 @@ Bot::registerRoute('/bot_handler', function () {
         $keyboard = (new BotKeyboard([
             [['Привет' => '/hello'], ['Пока' => '/buy']],
             [['Ещё' => '/etc']],
-        ]))->inline();
+        ]))->inline(false);
         $sender = new BotSender($request);
         $sender->send('Привет, '.$request->first_name, $keyboard);
         return 'ok';
@@ -35,10 +35,8 @@ Route::get('/test/kb', function (BotRequest $request) {
     $request->user_id = 123;
     $request->date = 123;
     $keyboard = (new BotKeyboard([
-        [['Привет' => '/hello'], ['Пока' => '/buy']],
-        [['Ещё' => '/etc']],
-    ]))->inline();
-    $sender = new BotSender($request);
-    $keyboard = $sender->makeTgKeyboard($keyboard);
+        ['Привет' => '/hello', 'Пока' => '/buy'],
+        ['Ещё' => '/etc'],
+    ]))->inline()->tg();
     dd($keyboard);
 });
