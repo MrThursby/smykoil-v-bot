@@ -24,5 +24,5 @@ Bot::registerRoute('/bot_handler', function () {
 });
 
 Route::get('/bot/set_wh', function () {
-    Telegram::setWebhook();
+    dd(Telegram::setWebhook());
 });
