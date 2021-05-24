@@ -36,7 +36,8 @@ class BotRequest
         if($this->driver == null){
             $this->command = 'unknown_service';
         } else {
-            $this->{$this->driver.'Driver'}($request);
+            $driver = $this->driver.'Driver';
+            $this->{$driver}($request);
         }
     }
 
