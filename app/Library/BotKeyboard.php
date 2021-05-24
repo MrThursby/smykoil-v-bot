@@ -53,7 +53,7 @@ class BotKeyboard
                     $type = 'text';
                     $payload = ['command' => $payload];
                     $buttons[] = [
-                        'action' => compact('type', 'label', 'payload'),
+                        'action' => compact('type', 'label'/*, 'payload'*/),
                         'color' => 'secondary'
                     ];
                 }
