@@ -53,5 +53,5 @@ Route::get('/test/kb', function (BotRequest $request) {
         ['Привет' => '/hello', 'Пока' => '/buy'],
         ['Ещё' => '/etc'],
     ]))->inline()->vk();
-    dd($keyboard);
+    return response()->json($keyboard);
 });
