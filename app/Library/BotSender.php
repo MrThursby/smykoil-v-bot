@@ -44,7 +44,7 @@ class BotSender
         try {
             return $api->send(new VKRequest('messages.send', $message))["response"];
         } catch (VkException $e) {
-            return null;
+            Log::error($e->getTraceAsString());
         }
     }
 
