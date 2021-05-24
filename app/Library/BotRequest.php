@@ -79,6 +79,7 @@ class BotRequest
     }
 
     public function vkDriver(Request $request) {
+        Log::info('Use vk driver');
         if($request->json('type') == 'confirmation') {
             $this->command = 'vk_confirmation';
         }
