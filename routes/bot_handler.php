@@ -30,3 +30,15 @@ Route::get('/bot/set_wh', function () {
         'url' => env('TELEGRAM_WEBHOOK_URL')
     ]));
 });
+
+Route::get('/test/kb', function (BotRequest $request) {
+    $request->user_id = 123;
+    $request->date = 123;
+    $keyboard = (new BotKeyboard([
+        [['Привет' => '/hello'], ['Пока' => '/buy']],
+        [['Ещё' => '/etc']],
+    ]))->inline();
+    $sender = new BotSender($request);
+    $keyboard = $sender->makeTgKeyboard($keyboard);
+    dd($keyboard);
+});
