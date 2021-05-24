@@ -60,6 +60,7 @@ class BotRequest
 
     public function tgDriver(Request $request) {
         Log::info('TgDriver has been used');
+        Log::info($request->json('message.text') ?? $request->json('callback_query.data'));
         if($request->has('message')){
             $q = $request->json('message.text');
             $this->user_id = (int) $request->json('message.from.id');
