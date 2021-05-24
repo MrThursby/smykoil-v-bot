@@ -40,7 +40,8 @@ class BotKeyboard
                     $buttons[] = compact('text', 'callback_data');
                 }
                 return $buttons;
-            })->toArray()
+            })->toArray(),
+            'one_time_keyboard' => true
         ]))->inline();
     }
 }
