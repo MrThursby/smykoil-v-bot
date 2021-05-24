@@ -10,6 +10,7 @@ use Telegram\Bot\Laravel\Facades\Telegram;
 
 Bot::registerRoute('/bot_handler', function () {
     Bot::registerCommand('/start', function (BotRequest $request) {
+        Log::info('Start command has been called');
         $sender = new BotSender($request);
         $response = $sender->send('Привет, '.$request->first_name);
         $response = collect($response)->toJson();
