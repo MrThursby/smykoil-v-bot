@@ -124,6 +124,7 @@ class BotRequest
     {
         $q = explode(' ', $q);
         $this->command = $q[0];
+        Log::info('Command '.$this->command.' has been used');
 
         if(count($q) > 1){
             unset($q[0]);
