@@ -31,13 +31,18 @@ class BotSender
     public function vkDriver(int $user_id, string $message, BotKeyboard $keyboard = null) {
         $api = new Client("5.131");
         $api->setDefaultToken(env('VK_API_TOKEN'));
+        $message = [
+            'user_id' => $user_id,
+            'random_id' => $this->date,
+            "message" => $message,
+        ];
+
+        if($keyboard){
+            $message['keyboard'] = $keyboard->vk();
+        }
 
         try {
-            return $api->send(new VKRequest('messages.send', [
-                'user_id' => $user_id,
-                'random_id' => $this->date,
-                "message" => $message,
-            ]))["response"];
+            return $api->send(new VKRequest('messages.send', $message))["response"];
         } catch (VkException $e) {
             return null;
         }
