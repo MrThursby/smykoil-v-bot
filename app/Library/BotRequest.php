@@ -27,6 +27,7 @@ class BotRequest
     public string $username;
     public string $first_name;
     public string $last_name;
+    public int $date;
 
     public function __construct(Request $request)
     {
@@ -88,6 +89,7 @@ class BotRequest
         if($request->json('type') == 'message_new') {
             $q = $request->json('object.message.text');
             $this->user_id = (int) $request->json('object.message.from_id');
+            $this->date = (int) $request->json('object.message.date');
 
             $api = new Client("5.131");
             $api->setDefaultToken(env('VK_API_TOKEN'));

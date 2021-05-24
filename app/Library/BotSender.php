@@ -13,6 +13,7 @@ class BotSender
 {
     public ?string $driver;
     public int $user_id;
+    public int $date;
 
     public function __construct(BotRequest $request) {
         $this->driver = $request->driver;
@@ -25,13 +26,13 @@ class BotSender
     }
 
     public function vkDriver(int $user_id, string $message, array $keyboard = null) {
-        Log::info("VK DRIVER CALLED");
         $api = new Client("5.131");
         $api->setDefaultToken(env('VK_API_TOKEN'));
 
         try {
             return $api->send(new VKRequest('messages.send', [
                 'user_id' => $user_id,
+                'random_id' => $this->date,
                 "message" => $message,
             ]))["response"];
         } catch (VkException $e) {
