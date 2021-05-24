@@ -12,12 +12,27 @@ use Telegram\Bot\Laravel\Facades\Telegram;
 Bot::registerRoute('/bot_handler', function () {
     Bot::registerCommand('/start', function (BotRequest $request) {
         $keyboard = (new BotKeyboard([
-            ['Привет' => '/hello', 'Пока' => '/buy'],
+            ['Привет' => '/hello', 'Пока' => '/bae'],
             ['Ещё' => '/etc'],
         ]))->inline(false);
         $sender = new BotSender($request);
         $sender->send('Привет, '.$request->first_name, $keyboard);
         return 'ok';
+    });
+
+    Bot::registerCommand('/hello', function (BotRequest $request) {
+        $sender = new BotSender($request);
+        $sender->send('Здароу');
+    });
+
+    Bot::registerCommand('/bae', function (BotRequest $request) {
+        $sender = new BotSender($request);
+        $sender->send('Досвидули');
+    });
+
+    Bot::registerCommand('/etc', function (BotRequest $request) {
+        $sender = new BotSender($request);
+        $sender->send('Ничего');
     });
 
     Bot::registerCommand('vk_confirmation', function () {
