@@ -12,8 +12,8 @@ use Telegram\Bot\Laravel\Facades\Telegram;
 Bot::registerRoute('/bot_handler', function () {
     Bot::registerCommand('/start', function (BotRequest $request) {
         $keyboard = (new BotKeyboard([
-            [['Привет' => '/hello'], ['Пока' => '/buy']],
-            [['Ещё' => '/etc']],
+            ['Привет' => '/hello', 'Пока' => '/buy'],
+            ['Ещё' => '/etc'],
         ]))->inline(false);
         $sender = new BotSender($request);
         $sender->send('Привет, '.$request->first_name, $keyboard);
