@@ -6,7 +6,6 @@ namespace App\Library;
 
 
 use Closure;
-use Illuminate\Support\Str;
 
 class BotCommand
 {
@@ -19,10 +18,6 @@ class BotCommand
     public function __construct(string $path, string $command, callable|Closure $action)
     {
         $this->path = $path;
-
-        $command = Str::start($command, '/');
-        $command = Str::replaceFirst('/', '', $command);
-
         $this->command = $command;
         $this->action = $action;
     }

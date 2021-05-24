@@ -21,7 +21,7 @@ class Bot
 
     public function registerCommand(string $command, callable|Closure $action): void
     {
-        $this->commands->add($this->route, $command, $action);
+        $this->commands->add($this->route, $this->convertPath($command), $action);
     }
 
     # Register Laravel Route
