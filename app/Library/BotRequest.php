@@ -37,6 +37,7 @@ class BotRequest
             $this->command = 'unknown_service';
         } else {
             $driver = $this->driver.'Driver';
+            Log::info('MethodName = '.$driver);
             $this->{$driver}($request);
         }
     }
