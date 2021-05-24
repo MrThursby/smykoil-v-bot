@@ -21,11 +21,11 @@ class BotSender
 
     public function send(string $message, array $keyboard = null){
         $driver = $this->driver.'Driver';
-        Log::info($driver);
         return $this->{$driver}($this->user_id, $message, $keyboard);
     }
 
     public function vkDriver(int $user_id, string $message, array $keyboard = null) {
+        Log::info("VK DRIVER CALLED");
         $api = new Client("5.131");
         $api->setDefaultToken(env('VK_API_TOKEN'));
 
