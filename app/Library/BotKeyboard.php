@@ -58,7 +58,7 @@ class BotKeyboard
                     ];
                 }
                 return $buttons;
-            })->toArray(),
+            })->flatten(1)->toArray(),
             'inline' => true
         ];
     }
