@@ -18,6 +18,7 @@ class BotSender
     public function __construct(BotRequest $request) {
         $this->driver = $request->driver;
         $this->user_id = $request->user_id;
+        $this->date = $request->date;
     }
 
     public function send(string $message, array $keyboard = null){
