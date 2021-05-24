@@ -7,7 +7,7 @@ namespace App\Library;
 class BotKeyboard
 {
     /** @var array[]  */
-    public array $keyboard;
+    public array $rows;
     public bool $inline = false;
 
     /**
@@ -16,7 +16,7 @@ class BotKeyboard
      * @param bool $inline
      */
     public function __construct(array $keyboard, bool $inline = false) {
-        $this->keyboard = $keyboard;
+        $this->rows = $keyboard;
         $this->inline = $inline;
     }
 

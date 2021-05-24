@@ -60,24 +60,33 @@ class BotSender
         //
     }
 
-    public function makeTgKeyboard(BotKeyboard $keyboard, $inline = false): Keyboard
+    public function makeTgKeyboard(BotKeyboard $keyboard, $inline = true): Keyboard
     {
-        $new = Keyboard::make();
-        foreach ($keyboard->keyboard as $line) {
-            $buttons = [];
-            foreach ($line as $btn) {
-                foreach ($btn as $text => $data){
-                    $buttons[] = Keyboard::inlineButton([
-                        'text' => $text,
-                        'callback_data' => $data
-                    ]);
-                }
-            }
-            $new->row(...$buttons);
+        if($inline) {
+            $kb = collect($keyboard->rows);
+            $kb = $kb->map(function ($line){
+                $line = collect($line);
+                $line = $line->map(function ($btn) {
+                    $button = [];
+                    foreach ($btn as $key => $value) {
+                        $button = ['text' => $key, 'callback_query' => $value];
+                    }
+                    return $button;
+                });
+                return $line->toArray();
+            });
+            $keyboard = [
+                'inline_keyboard' => $kb
+            ];
+            $keyboard = Keyboard::make($keyboard)->inline();
+        } else {
+            $keyboard = [
+                'keyboard' => $keyboard,
+                'resize_keyboard' => true,
+                'one_time_keyboard' => true
+            ];
+            $keyboard = Keyboard::make($keyboard);
         }
-        if($inline){
-            $new->inline();
-        }
-        return $new;
+        return $keyboard;
     }
 }
