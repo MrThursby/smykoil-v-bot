@@ -77,6 +77,7 @@ class BotRequest
         }
 
         else {
+            $this->command = 'unknown';
             return null;
         }
 
