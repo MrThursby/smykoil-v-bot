@@ -10,6 +10,8 @@ Bot::registerRoute('/bot_handler', function () {
     Bot::registerCommand('/start', function (BotRequest $request) {
         $sender = new BotSender($request);
         $sender->send('Привет, '.$request->first_name);
+
+        return 'ok';
     });
 
     Bot::registerCommand('vk_confirmation', function () {
