@@ -51,7 +51,10 @@ class BotKeyboard
                 $buttons = [];
                 foreach ($row as $label => $payload) {
                     $type = 'text';
-                    $buttons[] = compact('type', 'label', 'payload');
+                    $buttons[] = [
+                        'action' => compact('type', 'label', 'payload'),
+                        'color' => 'secondary'
+                    ];
                 }
                 return $buttons;
             })->toArray(),
