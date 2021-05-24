@@ -46,7 +46,7 @@ class BotKeyboard
     }
 
     public function vk() {
-        return [
+        return json_encode([
             'buttons' => collect($this->rows)->map(function ($row) {
                 $buttons = [];
                 foreach ($row as $label => $payload) {
@@ -58,8 +58,8 @@ class BotKeyboard
                     ];
                 }
                 return $buttons;
-            })->toJson(),
+            }),
             'inline' => true
-        ];
+        ]);
     }
 }
