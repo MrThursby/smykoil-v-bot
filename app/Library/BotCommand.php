@@ -27,7 +27,7 @@ class BotCommand
         $action = $this->action;
 
         if($action instanceof Closure){
-            return $action($params);
+            return $action(...$params);
         }
 
         if(is_callable($action)){
