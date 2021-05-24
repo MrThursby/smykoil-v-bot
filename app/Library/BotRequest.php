@@ -67,6 +67,7 @@ class BotRequest
             $this->first_name = (string) $request->json('message.from.first_name');
             $this->last_name = (string) $request->json('message.from.last_name');
             $this->username = (string) $request->json('message.from.username');
+            $this->date = (int) $request->json('message.date');
         }
 
         elseif($request->has('callback_query')){
@@ -75,6 +76,7 @@ class BotRequest
             $this->first_name = (string) $request->json('callback_query.from.first_name');
             $this->last_name = (string) $request->json('callback_query.from.last_name');
             $this->username = (string) $request->json('callback_query.from.username');
+            $this->date = (int) $request->json('callback_query.date');
         }
 
         else {
