@@ -44,4 +44,18 @@ class BotKeyboard
             'one_time_keyboard' => true
         ]))->inline();
     }
+
+    public function vk() {
+        return [
+            'buttons' => collect($this->rows)->map(function ($row) {
+                $buttons = [];
+                foreach ($row as $label => $payload) {
+                    $type = 'text';
+                    $buttons[] = compact('type', 'label', 'payload');
+                }
+                return $buttons;
+            })->toArray(),
+            'inline' => true
+        ];
+    }
 }

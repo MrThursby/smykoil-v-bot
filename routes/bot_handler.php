@@ -52,6 +52,6 @@ Route::get('/test/kb', function (BotRequest $request) {
     $keyboard = (new BotKeyboard([
         ['Привет' => '/hello', 'Пока' => '/buy'],
         ['Ещё' => '/etc'],
-    ]))->inline()->tg();
+    ]))->inline()->vk();
     dd($keyboard);
 });
