@@ -7,6 +7,7 @@ namespace App\Library;
 use ATehnix\VkClient\Client;
 use ATehnix\VkClient\Exceptions\VkException;
 use ATehnix\VkClient\Requests\Request as VKRequest;
+use Illuminate\Support\Facades\Log;
 
 class BotSender
 {
@@ -19,7 +20,9 @@ class BotSender
     }
 
     public function send(string $message, array $keyboard = null){
-        return $this->{$this->driver.'Driver'}($this->user_id, $message, $keyboard);
+        $driver = $this->driver.'Driver';
+        Log::info($driver);
+        return $this->{$driver}($this->user_id, $message, $keyboard);
     }
 
     public function vkDriver(int $user_id, string $message, array $keyboard = null) {
