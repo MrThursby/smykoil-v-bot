@@ -85,7 +85,7 @@ class BotRequest
             $this->command = 'vk_confirmation';
         }
 
-        if($request->json('type') == 'message') {
+        if($request->json('type') == 'message_new') {
             $q = $request->json('object.text');
             $this->user_id = (int) $request->json('object.from_id');
 
