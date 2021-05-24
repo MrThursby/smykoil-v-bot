@@ -44,6 +44,7 @@ class BotRequest
 
     public function setDriver(string $ip) {
         $ip = ip2long($ip);
+        Log::info("$ip");
         $webhookIp = WebhookIp::query()
             ->where('first_ip', '<=', $ip)
             ->where('last_ip', '>=', $ip)
@@ -58,6 +59,7 @@ class BotRequest
     }
 
     public function tgDriver(Request $request) {
+        Log::info('TgDriver has been used');
         if($request->has('message')){
             $q = $request->json('message.text');
             $this->user_id = (int) $request->json('message.from.id');
