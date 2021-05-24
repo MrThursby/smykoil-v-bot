@@ -54,6 +54,7 @@ class BotRequest
 
         if($webhookIp){
             $this->driver = $webhookIp->service->driver;
+            return null;
         }
 
         $this->driver = null;
