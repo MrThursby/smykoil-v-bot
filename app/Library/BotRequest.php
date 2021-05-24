@@ -48,7 +48,7 @@ class BotRequest
             ->where('first_ip', '<=', $ip)
             ->where('last_ip', '>=', $ip)
             ->first();
-        if($webhookIp)Log::info('WebhookIp finded: '.$webhookIp->id);
+        if($webhookIp)Log::info('WebhookService finded: '.$webhookIp->service->driver);
 
         if($webhookIp){
             $this->driver = $webhookIp->service->driver;
