@@ -12,6 +12,7 @@ use ATehnix\VkClient\Exceptions\VkException;
 use Illuminate\Http\Request;
 use ATehnix\VkClient\Requests\Request as VKRequest;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class BotRequest
 {
@@ -137,6 +138,9 @@ class BotRequest
 
     public function getCommand(): string
     {
-        return $this->command;
+
+        $command = Str::start($this->command, '/');
+        $command = Str::replaceFirst('/', '', $command);
+        return $command;
     }
 }
