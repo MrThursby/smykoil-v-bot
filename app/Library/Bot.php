@@ -32,15 +32,17 @@ class Bot
         // Register commands
         $commands($this);
 
-        Route::get($path, function (Request $request, ...$params) {
+        Route::post($path, function (Request $request, ...$params) {
             return $this->handle($request, $params);
         });
     }
 
     public function handle(Request $request, array $params): mixed
     {
+        $botRequest = new BotRequest($request);
+
         $command = $this->commands
-            ->find($request->route()->uri, $request->input('command'));
+            ->find($request->route()->uri, $botRequest->getCommand());
 
         if(!$command) {
             return null;
