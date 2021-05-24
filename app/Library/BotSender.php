@@ -8,6 +8,7 @@ use ATehnix\VkClient\Client;
 use ATehnix\VkClient\Exceptions\VkException;
 use ATehnix\VkClient\Requests\Request as VKRequest;
 use Illuminate\Support\Facades\Log;
+use Telegram\Bot\Keyboard\Keyboard;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
 class BotSender
@@ -22,12 +23,12 @@ class BotSender
         $this->date = $request->date;
     }
 
-    public function send(string $message, array $keyboard = null){
+    public function send(string $message, BotKeyboard $keyboard = null){
         $driver = $this->driver.'Driver';
         return $this->{$driver}($this->user_id, $message, $keyboard);
     }
 
-    public function vkDriver(int $user_id, string $message, array $keyboard = null) {
+    public function vkDriver(int $user_id, string $message, BotKeyboard $keyboard = null) {
         $api = new Client("5.131");
         $api->setDefaultToken(env('VK_API_TOKEN'));
 
@@ -42,10 +43,35 @@ class BotSender
         }
     }
 
-    public function tgDriver(int $user_id, string $message, array $keyboard = null) {
-        return Telegram::sendMessage([
+    public function tgDriver(int $user_id, string $message, BotKeyboard $keyboard = null) {
+        $send = [
             'chat_id' => $user_id,
             'text' => $message,
-        ]);
+        ];
+
+        if($keyboard){
+            $send[] = ['reply_markup' => $this->makeTgKeyboard($keyboard)];
+        }
+
+        return Telegram::sendMessage($send);
+    }
+
+    public function makeVkKeyboard() {
+        //
+    }
+
+    public function makeTgKeyboard(BotKeyboard $keyboard, $inline = false) {
+        $new = Keyboard::make();
+        foreach ($keyboard as $line) {
+            $buttons = [];
+            foreach ($line as $key => $value) {
+                $buttons[] = Keyboard::inlineButton(['text' => $key, 'callback_data' => $value]);
+            }
+            $new->row(...$buttons);
+        }
+        if($inline){
+            $new->inline();
+        }
+        return $new;
     }
 }

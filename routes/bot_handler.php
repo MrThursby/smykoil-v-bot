@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BotHandler\WelcomeController;
 use App\Facades\BotFacade as Bot;
+use App\Library\BotKeyboard;
 use App\Library\BotRequest;
 use App\Library\BotSender;
 use Illuminate\Support\Facades\Log;
@@ -10,12 +11,12 @@ use Telegram\Bot\Laravel\Facades\Telegram;
 
 Bot::registerRoute('/bot_handler', function () {
     Bot::registerCommand('/start', function (BotRequest $request) {
-        Log::info('Start command has been called');
+        $keyboard = (new BotKeyboard([
+            [['Привет' => '/hello'], ['Пока' => '/buy']],
+            [['Ещё' => '/etc']],
+        ]))->inline();
         $sender = new BotSender($request);
-        $response = $sender->send('Привет, '.$request->first_name);
-        $response = collect($response)->toJson();
-        Log::info($response);
-
+        $sender->send('Привет, '.$request->first_name, $keyboard);
         return 'ok';
     });
 
