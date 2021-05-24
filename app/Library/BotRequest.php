@@ -97,7 +97,7 @@ class BotRequest
             if($request->has('object.message.payload')){
                 $q = $request->input('object.message.payload');
                 $q = json_decode($q);
-                $q = $q['command'];
+                $q = $q->command;
             } else {
                 $q = $request->json('object.message.text');
             }
