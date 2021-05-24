@@ -41,11 +41,13 @@ class BotRequest
     }
 
     public function setDriver(string $ip) {
+        Log::info('set driver for ip: '.$ip);
         $ip = ip2long($ip);
         $webhookIp = WebhookIp::query()
             ->where('first_ip', '>=', $ip)
             ->where('last_ip', '<=', $ip)
             ->first();
+        if($webhookIp)Log::info('WebhookIp finded: '.$webhookIp->id);
 
         if($webhookIp){
             $this->driver = $webhookIp->service->driver;
