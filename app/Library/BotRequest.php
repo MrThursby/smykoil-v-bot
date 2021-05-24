@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Library;
 
 
+use App\Models\WebhookIp;
 use App\Models\WebhookService;
 use ATehnix\VkClient\Client;
 use ATehnix\VkClient\Exceptions\VkException;
@@ -40,13 +41,14 @@ class BotRequest
     }
 
     public function setDriver(string $ip) {
-        $webhookService = WebhookService::query()
+        $ip = ip2long($ip);
+        $webhookIp = WebhookIp::query()
             ->where('first_ip', '>=', $ip)
             ->where('last_ip', '<=', $ip)
             ->first();
 
-        if($webhookService){
-            $this->driver = $webhookService->driver;
+        if($webhookIp){
+            $this->driver = $webhookIp->service->driver;
         }
 
         $this->driver = null;
