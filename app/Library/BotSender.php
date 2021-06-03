@@ -4,11 +4,11 @@
 namespace App\Library;
 
 
+use App\Library\Drivers\VKDriver;
 use ATehnix\VkClient\Client;
 use ATehnix\VkClient\Exceptions\VkException;
 use ATehnix\VkClient\Requests\Request as VKRequest;
 use Illuminate\Support\Facades\Log;
-use Telegram\Bot\Keyboard\Keyboard;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
 class BotSender
@@ -17,10 +17,16 @@ class BotSender
     public int $user_id;
     public int $date;
 
+    public array $drivers;
+
     public function __construct(BotRequest $request) {
         $this->driver = $request->driver;
         $this->user_id = $request->user_id;
         $this->date = $request->date;
+
+        $this->drivers = [
+            'vk' => new VKDriver(),
+        ];
     }
 
     public function send(string $message, BotKeyboard $keyboard = null){
